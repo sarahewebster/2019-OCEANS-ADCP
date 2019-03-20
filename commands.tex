@@ -1,0 +1,287 @@
+%NEW COMMAND LIST
+% this is a command for superscript and subscript on the left
+%\newcommand{\preind}[3]{\;{{\small{#1}}\atop{\small{#2}}}#3}
+\newcommand{\preind}[3]{\;{{\tiny{#1}}\atop{\tiny{#2}}}\hspace{-0.05in}#3}
+\newcommand{\laplace}{\mathcal{L}}
+\newcommand{\rb}[1]{\raisebox{-1.5ex}[0pt]{#1}}
+
+\newcommand{\sentry}[0]{{\it Sentry }}
+\newcommand{\nereus}[0]{{\it Nereus }}
+\newcommand{\jason}[0]{{\it Jason }}
+\newcommand{\alvin}[0]{{\it Alvin }}
+\newcommand{\iver}[0]{{\it Iver2 }}
+\newcommand{\tioga}[0]{{\it Tioga }}
+
+\newcommand{\order}[1]{\ensuremath{\mathcal{O}(10^{#1})}}
+
+% Eriksen uses the name ``Deepglider.''
+\newcommand{\deepGlider}{Deepglider}
+
+% These names suck.
+\newcommand{\standardTraj}{conventional\xspace}
+\newcommand{\USBLTraj}{deep-profiling\xspace}
+
+\newcommand{\effFactor}{R}
+\newcommand{\effFactorDive}{R_{dive}}
+
+
+\newcommand{\TDive}{T_{dive}}
+\newcommand{\Tconv}{T_{c}} %jck -- time a conventional glider spends submerged
+\newcommand{\Tdeep}{T_{d}} %jck -- time a deep profiling glider spends submerged
+
+
+\newcommand{\profileDepth}{z}
+\newcommand{\profileHeight}{\Delta_z}
+\newcommand{\diveSpeed}{U}
+\newcommand{\vertSpeed}{W}
+\newcommand{\diveAngle}{\theta}
+\newcommand{\pumpEnergy}{E_{pump}}
+\newcommand{\batteryEnergy}{B}
+\newcommand{\pHotel}{P_{hotel}}
+\newcommand{\pNav}{P_{nav}}
+\newcommand{\diveEnergyConventional}{E_{dive,o}}
+\newcommand{\diveEnergyUSBL}{E_{dive}}
+\newcommand{\xenduranceConventional}{T_o}
+\newcommand{\xenduranceUSBL}{T}
+
+
+%commands for the 2015 RI:small proposal -----
+%2015/07/27 21:06:10  changing some notation for OWTT-USBL.
+
+
+%super- and subscripts to frames and alignments.
+\newcommand{\vehicle}[0]{v}
+\newcommand{\world}[0]{w}
+\newcommand{\usbl}[0]{u}
+\newcommand{\locallevel}[0]{n}  % local north-east-down.
+
+% generic position
+\newcommand{\pos}[2]{\preind{#1}{}{\mathbf p}_{#2}}
+
+% generic rotation
+\newcommand{\rot}[2]{\preind{#1}{#2}\mathbf{R}}
+
+%owtt-usbl
+\newcommand{\upu}[0]{\pos{\usbl}{\mathrm{ASV}}}
+\newcommand{\wpv}[0]{\pos{\locallevel}{\mathrm{ASV}}}
+\newcommand{\vpw}[0]{\pos{\vehicle}{\world}}
+\newcommand{\vuR}[0]{\rot{\vehicle}{\usbl}}
+\newcommand{\uvR}[0]{\rot{\usbl}{\vehicle}}
+\newcommand{\wvR}[0]{\rot{\locallevel}{\vehicle}}
+\newcommand{\vwR}[0]{\rot{\vehicle}{\locallevel}}
+\newcommand{\az}[0]{\alpha}
+\newcommand{\el}[0]{\gamma}
+\newcommand{\rng}[0]{\Gamma}
+
+%scalars
+\newcommand{\x}[0]{x(t)}
+\newcommand{\xdot}[0]{\dot{x}(t)}
+\newcommand{\xddot}[0]{\ddot{x}(t)}
+\newcommand{\xhat}[0]{\hat{x}(t)}
+\newcommand{\xhatdot}[0]{\dot{\hat{x}}(t)}
+\newcommand{\xhatddot}[0]{\ddot{\xhat}(t)}
+\newcommand{\deltax}[0]{\Delta x(t)}
+\newcommand{\deltaxdot}[0]{\Delta \dot{x}(t)}
+\newcommand{\deltaxddot}[0]{\Delta \ddot{x}(t)}
+\newcommand{\none}[0]{l_1 s_1 + l_2 s_2}
+\newcommand{\ntwo}[0]{l_3 s_1 + l_4 s_2 + r}
+
+\newcommand{\vel}[0]{v(t)}
+\newcommand{\veldot}[0]{\dot{v}(t)}
+\newcommand{\velhat}[0]{\hat{v}(t)}
+\newcommand{\velhatdot}[0]{\dot{\hat{v}}(t)}
+\newcommand{\veldelta}[0]{\Delta \vel}
+\newcommand{\veldeltadot}[0]{\dot{\Delta \vel}}
+\newcommand{\veldeltaq}[0]{\Delta v_q(t)}
+
+\newcommand{\out}[0]{w(t)}
+\newcommand{\outhat}[0]{\hat{w}(t)}
+\newcommand{\outdelta}[0]{\Delta w(t)}
+
+\newcommand{\invec}[0]{\bm{u}(t)}
+
+\newcommand{\measnoise}[0]{n(t)}
+
+%uuv plant parameters with NO indices subscripts
+\newcommand{\thrust}[0]{\tau(t)}
+\newcommand{\mass}[0]{m}
+%% \newcommand{\alpha}[0]{\alpha}
+%% \newcommand{\beta}[0]{\beta}
+%% \newcommand{\mu}[0]{\mu}
+%% \newcommand{\nu}[0]{\nu}
+\newcommand{\bouyancy}[0]{b}
+\newcommand{\quaddrag}[0]{d_{Q}}
+\newcommand{\lindrag}[0]{d_{L}}
+
+%uuv plant parameters with indices subscripts
+\newcommand{\veli}[0]{v_i(t)}
+\newcommand{\acceli}[0]{\dot{v}_i(t)}
+\newcommand{\thrusti}[0]{\tau_i(t)}
+\newcommand{\massi}[0]{m_i}
+\newcommand{\alphai}[0]{\alpha_i}
+\newcommand{\betai}[0]{\beta_i}
+\newcommand{\mui}[0]{\mu_i}
+\newcommand{\nui}[0]{\nu_i}
+\newcommand{\bouyancyi}[0]{b_i}
+\newcommand{\quaddragi}[0]{d_{Q_i}}
+\newcommand{\lindragi}[0]{d_{L_i}}
+
+
+
+%vectors
+%\renewcommand{\bm}[1]{{\bm #1}}
+
+%navcal vectors
+\newcommand{\worldvel}[0]{ \preind{w}{}\dot{\bm{p}}}
+\newcommand{\lblworldvel}[0]{ \preind{w}{}\dot{\bm{p}}_{l}}
+\newcommand{\lblworldpos}[0]{ \preind{w}{}\bm{p}_{l}}
+
+\newcommand{\beamvel}[0]{\bm{v}_{beam}(t)}
+\newcommand{\dopinstvel}[0]{\preind{i}{}\dot{\bm{p}}_d(t)}
+\newcommand{\dopworldvel}[0]{\preind{w}{}\dot{\bm{p}}_{d}(t)}
+\newcommand{\dopworldposhat}[0]{\preind{w}{}\hat{\bm{p}}_d(t)}
+\newcommand{\dopworldpos}[0]{\preind{w}{}\bm{p}_d(t)}
+\newcommand{\dopworldposhatini}[0]{\preind{w}{}\hat{\bm{p}}_{d}(t_0)}
+\newcommand{\dopvehvel}[0]{\preind{v}{}\dot{\bm{p}}_d(t)}
+
+%\newcommand{\bvec}[0]{\bm{b}}
+\newcommand{\cvec}[0]{\bm{c}}
+\newcommand{\qvec}[0]{\bm{q}}
+\newcommand{\qvecdot}[0]{\dot{\bm{q}}}
+
+
+%dynamics and observer vectors
+\newcommand{\xvec}[0]{\left[\begin{array}{{c}} \x \\ \xdot \end{array}\right]}
+\newcommand{\xvecshort}[0]{{\bm{x}}(t)}
+\newcommand{\xvecdot}[0]{\left[\begin{array}{{c}} \xdot \\ \xddot \end{array}\right]}
+\newcommand{\xvecdotshort}[0]{\bm{\dot{x}}(t)}
+
+
+\newcommand{\xhatvec}[0]{\left[\begin{array}{{c}} \xhat \\ \xhatdot \end{array}\right]}
+\newcommand{\xhatvecshort}[0]{\bm{\hat{x}}(t)}
+\newcommand{\xhatvecdot}[0]{\left[\begin{array}{{c}} \xhatdot \\ \xhatddot \end{array}\right]}
+\newcommand{\xhatvecdotshort}[0]{\dot{\bm{\hat{x}}}(t)}
+
+\newcommand{\deltaxvec}[0]{\left[\begin{array}{{c}} \Delta x(t) \\ \dot{\Delta x}(t) \end{array}\right]}
+\newcommand{\deltaxvecshort}[0]{\Delta \bm{x}(t)}
+\newcommand{\deltaxvecdot}[0]{\left[\begin{array}{{c}} \dot{\Delta x}(t) \\ \ddot{\Delta x}(t) \end{array}\right]}
+\newcommand{\deltaxvecdotshort}[0]{\Delta \dot{\bm{x}}(t)}
+
+\newcommand{\betavec}[0]{\left[\begin{array}{{c}} 0 \\ \beta \end{array}\right]}
+\newcommand{\betavecshort}[0]{\bm{\beta}}
+
+\newcommand{\alphavec}[0]{\left[\begin{array}{{c}} 0 \\ \alpha \end{array}\right]}
+\newcommand{\alphavecshort}[0]{\bm{\alpha}}
+
+\newcommand{\outvec}[0]{\bm{w}(t)}
+\newcommand{\outvecshort}[0]{\bm{w}(t)} 
+\newcommand{\outhatvecshort}[0]{\bm{\hat{w}}(t)}
+\newcommand{\outtildevec}[0]{\bm{\tilde{w}}(t)}
+\newcommand{\OUTtilde}[0]{\tilde{W}(t)}
+\newcommand{\outdeltavecshort}[0]{\Delta \bm{w}(t)} 
+
+\newcommand{\rvec}[0]{\left[\begin{array}{{c}} 0      \\ r_i(t)   \end{array} \right]}
+\newcommand{\svec}[0]{\left[\begin{array}{{c}} s_1(t) \\ s_2(t) \end{array} \right]}
+\newcommand{\nuvec}[0]{\left[\begin{array}{{c}} 0 \\ \nu \end{array}\right]}
+\newcommand{\nuvecshort}[0]{\bm{\nu}}
+\newcommand{\muvecshort}[0]{\bm{\mu}}
+\newcommand{\muvec}[0]{\left[\begin{array}{{c}} 0 \\ \mu \end{array}\right]}
+
+\newcommand{\measnoisevec}[0]{\bm{n}(t)}
+
+\newcommand{\instframe}[0]{\preind{i}{}\bm{p}(t)}
+\newcommand{\vehicleframe}[0]{\preind{v}{}\bm{p}(t)}
+\newcommand{\localframe}[0]{\preind{l}{}\bm{p}(t)}
+\newcommand{\worldframe}[0]{\preind{w}{}\bm{p}(t)}
+
+%quadratic scalars
+\newcommand{\xq}[0]{\vel |\vel|}
+\newcommand{\xqshort}[0]{x_q(t)}
+\newcommand{\xhatq}[0]{\dot{\hat{x}}(t) |\dot{\hat{x}}(t)|}
+\newcommand{\xhatqshort}[0]{\hat{x}_q(t)}
+\newcommand{\deltaxq}[0]{\dot{\hat{x}}(t) |\dot{\hat{x}}(t)| - \dot{x}(t) |\dot{x}(t)|}
+\newcommand{\deltaxqshort}[0]{\Delta \dot{x}_q(t)}
+
+%matrices
+\newcommand{\Amatrix}[0]{\left[\begin{array}{{cc}} 0 & 1 \\ 0 & \mu \end{array}\right]}
+\newcommand{\Ashort}[0]{\bm{A}}
+\newcommand{\Cshort}[0]{\bm{C}}
+\newcommand{\Pshort}[0]{\bm{P}}
+\newcommand{\Lshort}[0]{\bm{L}}
+\newcommand{\Qshort}[0]{\bm{Q}}
+\newcommand{\eye}[0]{ I}
+\newcommand{\momega}[0]{{\bm{m}}(i\omega)}
+\newcommand{\ms}[0]{{\bm{m}}(s)}
+\newcommand{\inmap}[0]{{\bm{b}}}
+\newcommand{\outmap}[0]{\bm{c}}
+\newcommand{\Rshort}[0]{\bm{R}}
+\newcommand{\insttovehicle}[0]{\preind{v}{i}R}
+\newcommand{\vehicletolocal}[0]{\preind{l}{v}R(t)}
+\newcommand{\localtoworld}[0]{\preind{w}{l}R(t)}
+\newcommand{\vehicletoworld}[0]{\preind{v}{w}R}
+
+\newcommand{\cvecTtrans}[0]{\cvec\hspace{0.03in}^T}
+\newcommand{\cvecT}[0]{\cvec}
+\newcommand{\cvectrans}[0]{\cvec\hspace{0.03in}^T}
+\newcommand{\bvecTtrans}[0]{\bvec\hspace{0.03in}^T}
+\newcommand{\bvectrans}[0]{\bvec\hspace{0.03in}^T}
+\newcommand{\bvecT}[0]{\bvec}
+\newcommand{\qvectrans}[0]{\qvec\hspace{0.03in}^T}
+\newcommand{\AT}[0]{A}
+\newcommand{\QT}[0]{Q}
+\newcommand{\PT}[0]{P}
+
+\newcommand{\zetavec}[0]{\bm{\zeta}}
+
+%define the gravimeter position
+\newcommand{\gravposvec}[0]{\preind{w}{}\bm{p_g}}
+\newcommand{\gravposx}[0]{\preind{w}{}p_{g_x}}
+\newcommand{\gravposy}[0]{\preind{w}{}p_{g_y}}
+\newcommand{\gravposz}[0]{\preind{w}{}p_{g_z}}
+\newcommand{\gravposveclong}[0]{\left[ \begin{array}{c} \gravposx \\  \gravposy \\ \gravposz \end{array} \right]}
+\newcommand{\gravposvecdot}[0]{\preind{w}{}\bm{\dot{p}_g}}
+\newcommand{\gravposxdot}[0]{\preind{w}{}\dot{p}_{g_x}}
+\newcommand{\gravposydot}[0]{\preind{w}{}\dot{p}_{g_y}}
+\newcommand{\gravposzdot}[0]{\preind{w}{}\dot{p}_{g_z}}
+\newcommand{\gravposvecddot}[0]{\preind{w}{}\bm{\ddot{p}_g}}
+\newcommand{\gravposxddot}[0]{\preind{w}{}\ddot{p}_{g_x}}
+\newcommand{\gravposyddot}[0]{\preind{w}{}\ddot{p}_{g_y}}
+\newcommand{\gravposzddot}[0]{\preind{w}{}\ddot{p}_{g_z}}
+
+%define the translational offset from the vehicle frame to the gravimeter
+\newcommand{\gravoffsetvec}[0]{\preind{g}{v}\bm{d}}
+\newcommand{\gravoffsetx}[0]{\preind{g}{v}d_x}
+\newcommand{\gravoffsety}[0]{\preind{g}{v}d_y}
+\newcommand{\gravoffsetz}[0]{\preind{g}{v}d_z}
+\newcommand{\gravoffsetveclong}[0]{\left[ \begin{array}{c} \gravoffsetx \\  \gravoffsety \\ \gravoffsetz \end{array} \right]}
+
+
+\newcommand{\Rvehtograv}[0]{\preind{g}{v}R}
+%define vehicle heading, pitch, and roll
+\newcommand{\hdg}[0]{\phi}
+\newcommand{\pitch}[0]{\theta}
+\newcommand{\roll}[0]{\psi}
+\newcommand{\hdgdot}[0]{\dot{\phi}}
+\newcommand{\pitchdot}[0]{\dot{\theta}}
+\newcommand{\rolldot}[0]{\dot{\psi}}
+\newcommand{\hdgddot}[0]{\ddot{\phi}}
+\newcommand{\pitchddot}[0]{\ddot{\theta}}
+\newcommand{\rollddot}[0]{\ddot{\psi}}
+
+%define the vehicle position
+\newcommand{\vehicleposvec}[0]{\preind{w}{}\bm{p_v}}
+\newcommand{\vehicleposx}[0]{\preind{w}{}p_{v_x}}
+\newcommand{\vehicleposy}[0]{\preind{w}{}p_{v_y}}
+\newcommand{\vehicleposz}[0]{\preind{w}{}p_{v_z}}
+\newcommand{\vehicleposveclong}[0]{\left[ \begin{array}{c} \vehicleposx \\  \vehicleposy \\ \vehicleposz \end{array} \right]}
+\newcommand{\vehicleposxdot}[0]{\preind{w}{}\dot{p}_{v_x}}
+\newcommand{\vehicleposydot}[0]{\preind{w}{}\dot{p}_{v_y}}
+\newcommand{\vehicleposzdot}[0]{\preind{w}{}\dot{p}_{v_z}}
+\newcommand{\vehicleposxddot}[0]{\preind{w}{}\ddot{p}_{v_x}}
+\newcommand{\vehicleposyddot}[0]{\preind{w}{}\ddot{p}_{v_y}}
+\newcommand{\vehicleposzddot}[0]{\preind{w}{}\ddot{p}_{v_z}}
+
+%define the vehicle velocity vec
+\newcommand{\vehiclevelvec}[0]{\left[ \begin{array}{c} \vehicleposxdot \\  \vehicleposydot \\  \vehicleposzdot \\ \hdgdot \\ \pitchdot \\ \rolldot \end{array} \right]}
+%define the vehicle accel vec
+\newcommand{\vehicleaccvec}[0]{\left[ \begin{array}{c} \vehicleposxddot \\  \vehicleposyddot \\  \vehicleposzddot \\ \hdgddot \\ \pitchddot \\ \rollddot \end{array} \right]}
