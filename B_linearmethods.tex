@@ -1,7 +1,216 @@
-\section{Linear Method \textbf(ANDREY)}
+\section{Linear Inverse Method}
 
-Andrey's method
+The goal of the inverse estimation is to simultaneously estimate a) absolute (Earth-referenced) ocean velocity profile, and b) the glider path through the water, based on on-board ADCP observations of relative current velocity profiles.
+For simplicity, the derivation is in terms of scalar velocity $v$, which can be understood to be either one of the velocity components $(u,v)$, or a complex-number representation of velocity, $u+iv$.
 
-Is this the right title?
+\subsection {Formulation of the inverse problem}
+Similar to \cite{Visbeck2002,todd-2011-JGRC}, glider-borne ADCP observations of horizontal currents are considered to be a sum of three unknown components: 
+$$u^a(z,t)=u^o(z)-u^g(t)+u^n(z,t),$$
+where 
+\begin{itemize}
+\item $u^o$ is the absolute ocean velocity 
+\item $u^g$ is the over-the-ground (OTG) velocity of the glider platform 
+\item $u^n$ is the ADCP measurement noise. 
+\end{itemize}
+Here, we separate the OTG glider velocity into the drift velocity $u^d=u^o(z^g(t))$, equal to the ocean velocity at the glider depth $z^g$, and the glider horizontal TTW "propulsion" speed $u^p$, which is determined by the glider control and its flight dynamics:
+\[
+u^g(t) = u^o(z^g(t)) + u^p(t).
+\]
+Thus the inverse problem is to obtain $u^o(z)$ and $u^g(t)$ such that the discrepancy with the observed values of $u^a$ are minimized,
+\begin{equation}
+\label{eq:min}
+\min{\|u^a(z,t)-(u^o(z)-u^o(z^g(t))-u^p(t))\|_2},
+\end{equation}
+in this formulation in a least squares sense, but other minimization criteria can be used.
+
+This formulation may appear unnecessarily complex compared to \cite{todd-2011-JGRC}, as it requires interpolation of ocean velocity onto the glider location ($u^o(z^g(t))$), but it allows explicit treatment of the glider control (discussed in Section \ref{sec:nonlin}). Additionally, we feel that application of the regularizing smoothness constraint (described below) to $u^p$ is more appropriate than to $u^g$.
+
+\subsection{Discrete formulation}
+We consider a set of individual ADCP observations $u^a_{ij}=u^a(z_{ij},t_j)$ at depth cells $z_{ij}$ and times $t_j$, with the
+ $i\in [1,I]$ being the ADCP range cell index, and $j\in [1,J]$ being the sample time (ping) index.  All the valid observations form an observation column vector 
+$$u^a=[u^a_1...u^a_k]^\top,$$
+where the index $k\in [1, K], K\le IJ$ enumerates valid observations. The vectors $[z_k]$ and $[t_k]$ represent the corresponding depth and time coordinates of the $k$-th valid observation.
 
 
+The unknown state vector 
+$$x=\begin{bmatrix}
+{u^g} \\ u^o
+\end{bmatrix}$$
+consists of a vector of the unknown glider OTG velocities 
+$${u^g}= [u^g_1 ... u^g_M]^\top$$ 
+defined on a temporal grid $\hat{t}_m, m\in[1,M]$, and a vector of the unknown ocean velocities 
+$$u^o=[u^o_1 ... u^o_L]^\top$$
+defined on a regular vertical grid $\hat{z}_l=(l-1)\Delta \hat{z}, l\in [1,L]$. For convenience, the temporal grid $\hat{t}_m$ is taken to be a superset of the sample times $t_j$, with the extra intervals added during the gaps in the ADCP record (at the beginning and the end of the dive, as well as during a brief intermission at the bottom of the dive); the spacing of the extra intervals is set to the average ADCP sampling interval.
+Discrete formulation of the ADCP sampling problem \eqref{eq:min} then becomes 
+$$
+u^a= - H^t u^g + H^z u^0 + n, %\mathrm{Hx}+
+$$
+where $n$ is the noise vector.
+%The observation matrix $H$ can be written as 
+%$$
+%H= \begin{bmatrix}
+%&-H^t&|&H^{z} &\end{bmatrix},
+%$$
+The matrix operator $H^t$ represents temporal interpolation from the time grid $\{\hat{t}_m\}$ onto the sampling times $\{t_k\}$, and 
+$H^{z}$ represents spatial interpolation from the vertical grid $\{\hat{z}_l\}$ onto $\{z_k\}$.
+Since $\{t_k\}\subset \{\hat{t}_m\}$ by construction, $H^t$ is simply a subsampling matrix,
+$$
+H^t_{km}=\begin{cases} 1,&\text{if }t_k = \hat{t}_m\\0,&\text{otherwise } \end{cases}.
+$$
+The formulation of vertical interpolation matrices depends on the chosen interpolation method. Visbeck \cite{Visbeck2002} method is equivalent to the nearest-neighbor interpolation. Here, we employ linear interpolation, corresponding to a matrix operator
+$$
+H^z_{kl}=\begin{cases}
+1-(\hat{z}_l-z_k)/\Delta \hat{z},&\hat{z}_{l-1} \le z_k <\hat{z}_l\\
+1-(z_k-\hat{z}_l)/\Delta \hat{z},&\hat{z}_l \le z_k <\hat{z}_{l+1}\\
+0,& \text{otherwise.}
+\end{cases}
+$$
+
+\subsection {Additional constraints}
+\label{sec:inverse.constraint}
+
+At the core of the inverse problem is the requirement to balance various
+constraints on the glider's motion in the form of additional measurements (such
+as start- and end-of-dive GPS fixes) and assumptions we can make about the
+physical environment, such as currents vary smoothly in time and space.
+
+
+\textbf{Start- and End-of-Dive GPS:} GPS fixes before and after the dive provide tie-points on the integral $\int u^gdt$ over the duration of the dive. The discrete formulation of these relationships is given by 
+$$
+Sx\approx s,
+$$
+where $s$ is the scalar (complex) horizontal displacement between the two GPS fixes,
+\(
+S=\begin{bmatrix}w & 0\end{bmatrix},
+\)
+and $w$ represents the weights corresponding to trapezoidal rule integration, 
+$$ w_m=\begin{cases}
+0.5(\hat{t}_2-\hat{t}_1), &m=1\\
+0.5(\hat{t}_{m+1}-\hat{t}_{m-1}), &1<m<M\\
+0.5(\hat{t}_M-\hat{t}_{M-1}), &m=M
+\end{cases}
+$$
+
+\textbf{Glider Velocity:} A measure of the glider's TTW velocity, such as that provided by the glider hydrodynamic model, can be used to provide a constraint on $u^p$(t) in \eqref{eq:min}. Discrete formulation of this constraint is 
+\[
+u^p = -H^t u^g + H^{z0} u^o + n, 
+\]
+%$$\begin{bmatrix}
+%&-H^t&|&H^{z0} &\end{bmatrix} x=u^{model},$$
+where $u^{p}$ is the TTW velocity  predicted by the hydrodynamic model, and $H^{z0}$ represents spatial interpolation of ocean velocity profile onto the glider depth 
+(so that  $H^{z0}  x$ is the glider drift speed); this matrix is constructed in the same way as $H^{z}$. The relative confidence, within the model, of these measurements compared to the ADCP measurements can be controlled by adjusting the relative magnitude of the noise vectors $n$ for the two measurements. As is demonstrated and discussed in the Results section, however, understanding the subtleties of how to weight the constraints is still a work in progress.
+
+\textbf{Smoothness Regularization:}
+\label{sec:inv.reg}
+Additionally, we require both the ocean and the glider velocities to be smooth, which is equivalent to minimization of ${D_2u^g}$, and ${D_2u^o}$ where $D_2$ are the second derivative operators of the appropriate sizes,
+$$D_2=\begin{bmatrix}
+1 &-2 &1 &0 &\cdots &0\\
+0 &1 &-2 &1 &\\
+\vdots & & & \ddots &\ddots\\
+0 &\cdots &0 &1 &-2 &1
+\end{bmatrix}.
+$$
+
+
+\textbf{Subtleties of Regularization:}
+%
+Ideally, we want to solve an inverse problem that is aware of both the
+vehicle dynamics and control and the ADCP observations, because this is the
+only way to make a self-consistent estimate. The challenge, as mentioned above
+with the glider velocity estimates in particular, is that measurements are inherently
+noisy, often biased, and optimally choosing the relative weighting between
+measurements is still a work in progress.
+%
+%We have some idea how  the glider moves, and that knowledge should be useful.
+%
+
+In the extreme case, if we had a perfect hydrodynamic model, we would not need
+the inverse at all, as we would know the TTW velocity at any moment (based
+solely on the buoyancy and pitch control), and therefore would have absolute
+ocean velocity estimates from every trace. At the other extreme, if the ADCP
+measurements were perfect and extended close to the vehicle, we would have a
+direct measure of the TTW velocity from that information alone and would not
+need the dynamic model.
+
+In reality, the ADCP is noisy and has gaps (notably, the blanking
+distance). And without the hydrodynamic model, we can't distinguish between the legitimate accelerations due to AUG control (which
+should be kept) and spurious accelerations arising from ADCP noise (which should
+be eliminated)---and we would be forced to either keep both, or eliminate both,
+which is suboptimal.
+
+%so some smoothing and extrapolation is required to estimate the TTW
+%velocity from ADCP. Smoothing things uniformly, however, presents another
+%problem---we can expect the glider to move smoothly \emph{except} when it changes
+%pitch or buoyancy.
+
+%Including the model TTW velocity estimate constraint in the inverse should help, theoretically, as long as a) it is reasonably correct, and b) we have a good idea of what is considered "allowable" deviation from it -- because we need to tell the inverse what is considered to be "close" to the model TTW velocity (i.e., misfit measure). 
+
+%Right now, KF has both the long-term (bias) and short-term (oversmoothing) issues, which are difficult to control simultaneously. (If it were only noisy, we could require the solution to be close to KF on average; if it were only biased, we could require the deviation to be smooth. Cannot efficiently require both.) 
+
+%%%%%%%%%%%%%%
+
+\subsection {Least-Squares Formulation}
+The final least-squares problem formulation is given by 
+$$
+\min_x{\|{Gx-d}\|_2^2},
+$$
+where
+$$
+G=
+\begin{bmatrix}
+-H^t  &H^z \\
+w & 0\\
+ -H^t & H^{z0}\\
+r_o D_2 & 0 \\
+0  & r_gD_2
+\end{bmatrix}, \qquad 
+d=\begin{bmatrix}{u^a}\\ s\\  u^p \\ 0 \\ 0  \end{bmatrix},
+$$
+and $r_o$ and $r_g$ are regularization parameters.
+The solution is given by
+$$
+x=(G^\top G)^{-1}G^\top d,
+$$
+and can be computed in a more efficient manner (e.g., using a QR decomposition aware of the block structure of $G$).
+\subsection {Modification: two-profile solution}
+The ocean velocity profile is expected to change over the duration of the dive. Therefore, it may be reasonable to seek \emph{two} ocean velocity profiles $u^d$ and $u^u$, corresponding to the descent and asent. The state vector and the observation matrix then become
+$$x=\begin{bmatrix}
+{u^g} \\ 
+u^d \\
+u^u 
+\end{bmatrix},$$
+$$
+H= \begin{bmatrix}
+&-H^t&|&H^{zd} &|&H^{zu} &\end{bmatrix},
+$$
+where the interpolation matrices $H^{zd}$ and $H^{zu}$ are constructed as $H^{z}$ before, except that only those rows of $H^{zd}$ that correspond to the downcast $z_k$ are non-zero, and vise versa. 
+
+An additional constraint is necessary, requiring the ocean velocity profiles to match at the bottom end, i.e.
+$$
+\begin{bmatrix}
+0 & e_n^\top & -e_n^\top
+\end{bmatrix}x=0.
+$$
+where $e_n$ is the elementary vector with $1$ in the last entry. 
+
+The modified system is given by 
+
+$$
+\min_x{\|{Gx-d}\|_2^2},
+$$
+where
+$$
+G=
+\begin{bmatrix}
+-H^t  &H^{zd} & H^{zu} \\
+w & 0 & 0\\
+ -H^t & H^{z0d} &H^{z0u} \\
+r_o D_2 & 0 & 0\\
+0  & r_gD_2 & r_gD_2 
+\end{bmatrix}, \qquad 
+d=\begin{bmatrix}{u^a}\\ s\\  u^p \\ 0 \\ 0  \end{bmatrix},
+$$
+
+
+
+For shorter dives, assuming identical current profiles on ascent and descent may be a reasonable assumptions. For the data collected over multi-hour dives, however, as we show, there can be significant deviation in the current profile during descent and ascent, and we use the two-profile solution.

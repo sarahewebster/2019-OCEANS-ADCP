@@ -64,6 +64,7 @@
 % draft mode.
 %
 \documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
 % Add the compsoc option for Computer Society conferences.
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
@@ -342,19 +343,25 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-%\author{
+\author{
+Jonathan Jonker$^{1}$,
+Andrey Shcherbina$^{2}$,
+Richard Krishfield$^{3}$,
+Lora Van Uffelen$^{4}$,\\
+Aleksandr Aravkin$^{5}$,
+Sarah E. Webster$^{*2}$
 %Michael V. Jakuba$^{1}$, 
 %James C. Kinsey$^{1}$, 
 %James Partan$^{1}$,
 %\& Sarah E. Webster$^{2}$
-%% Lee Freitag$^{1}$,
-%% Adam Soule$^{1}$, \&
-%% Christopher R. German$^{1}$,
-%% <-this % stops a space
-%\thanks{$^{1}$Woods Hole Oceanographic Engineering, Woods Hole, MA USA
-%        {\tt\small @whoi.edu}}%
-%\thanks{$^{2}$Applied Physics Laboratory, University of Washington, Seattle, WA USA}%
-%}
+% <-this % stops a space
+\thanks{$^{1}$Department of Mathematics, University of Washington, Seattle, WA USA}
+\thanks{$^{2}$Applied Physics Laboratory, University of Washington, Seattle, WA USA}
+\thanks{$^{3}$Woods Hole Oceanographic Institution, Woods Hole, MA USA}
+\thanks{$^{4}$Ocean Engineering, University of Rhode Island, Narragansett, RI USA}
+\thanks{$^{5}$Applied Mathematics, University of Washington, Seattle, WA USA}
+\thanks{*{\tt\small swebster@apl.washington.edu}}%
+}
 
 
 % conference papers do not typically use \thanks and this command
@@ -365,14 +372,39 @@
 % for over three affiliations, or if they all won't fit within the width
 % of the page, use this alternative format:
 % 
-\author{\IEEEauthorblockN{Sarah E. Webster\IEEEauthorrefmark{1},
-Andrey Shcherbina\IEEEauthorrefmark{1} and
-Aleksandr Aravkin\IEEEauthorrefmark{2}}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}Applied Physics Laboratory, University of Washington, Seattle, WA USA}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}Applied Mathematics, University of Washington, Seattle, WA USA}
-}
+%\author{\IEEEauthorblockN{
+%Aleksandr Aravkin\IEEEauthorrefmark{2},
+%Jonathan Jonker\IEEEauthorrefmark{3},
+%Andrey Shcherbina\IEEEauthorrefmark{1}}
+%{Richard Krishfield\IEEEauthorrefmark{4},
+%Lora Van Uffelen\IEEEauthorrefmark{5} and
+%Sarah E. Webster\IEEEauthorrefmark{1}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}Applied Physics Laboratory, %University of Washington, Seattle, WA USA}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Applied Mathematics, %University of Washington, Seattle, WA USA}
+%\IEEEauthorblockA{\authorrefmark{3}Department of Mathematics, %University of Washington, Seattle, WA USA}
+%\IEEEauthorblockA{\authorrefmark{4}Physical Oceanography, Woods Hole %Oceanographic Institution, Woods Hole, MA USA}
+%\IEEEauthorblockA{\authorrefmark{5}Ocean Engineering, University of %Rhode Island, Narragansett, RI USA}}
 
 
+%\author{\IEEEauthorblockN{
+%{Aleksandr Aravkin\IEEEauthorrefmark{2}}
+%{\IEEEauthorrefmark{2}Applied Mathematics, University of Washington, %Seattle, WA USA}}
+%\IEEEauthorblockN{
+%{Jonathan Jonker\IEEEauthorrefmark{3}}
+%{\authorrefmark{3}Department of Mathematics, University of %Washington, Seattle, WA USA}}
+%\IEEEauthorblockN{
+%{Andrey Shcherbina\IEEEauthorrefmark{1}}
+%{\IEEEauthorrefmark{1}Applied Physics Laboratory, University of %Washington, Seattle, WA USA}}
+%\IEEEauthorblockN{
+%{Richard Krishfield\IEEEauthorrefmark{4}}
+%{\authorrefmark{4}Physical Oceanography, Woods Hole Oceanographic %Institution, Woods Hole, MA USA}}
+%\IEEEauthorblockN{
+%{Lora Van Uffelen\IEEEauthorrefmark{5}}
+%{\authorrefmark{5}Ocean Engineering, University of Rhode Island, %Narragansett, RI USA}}
+%\IEEEauthorblockN{
+%{Sarah E. Webster\IEEEauthorrefmark{1}}
+%{\IEEEauthorrefmark{1}Applied Physics Laboratory, University of %Washington, Seattle, WA USA}}
+%}
 
 
 % use for special paper notices
@@ -380,6 +412,7 @@ Aleksandr Aravkin\IEEEauthorrefmark{2}}
 
 % make the title area
 \maketitle
+
 
 
 \vspace{-0.2in}
@@ -393,17 +426,16 @@ Aleksandr Aravkin\IEEEauthorrefmark{2}}
     
 This paper describes the development and experimental results of navigation algorithms for an autonomous underwater glider (AUG) that employs an on-board acoustic Doppler current profiler (ADCP). AUGs are buoyancy-driven autonomous underwater vehicles that use small hydrofoils to make forward progress while profiling vertically.
 %
-During each dive, which can last up to 6 hours, the Seaglider AUG used in this experiment typically reaches the depth of 1000 m and travels 3-6 km horizontally through the water, relying solely on dead-reckoning. Horizontal through-the-water (TTW) progress of AUG is 20-30 cm/s, which is comparable to the speed of the stronger ocean currents. Underwater navigation of an AUG in the presence of unknown advection therefore presents a considerable challenge. We present a post-processing algorithm to simultaneously estimate the ocean current profile through which the AUG was flown, as well as the AUG's horizontal position as influenced by the local currents. 
+During each dive, which can last up to 6 hours, the Seaglider AUG used in this experiment typically reaches the depth of 1000 m and travels 3-6 km horizontally through the water, relying solely on dead-reckoning. Horizontal through-the-water (TTW) progress of AUG is 20-30 cm/s, which is comparable to the speed of the stronger ocean currents. Underwater navigation of an AUG in the presence of unknown advection therefore presents a considerable challenge. We present two different formulations of a post-processing algorithm [[STATE BRIEFLY WHAT DIFFERENTIATES THEM]] to estimate the ocean current profile through which the AUG was flown using measurements of current relative to the AUG from the ADCP, and estimates of the AUGs TTW velocity from a hydrodynamic model.  The result is a complete current profile along the AUGs trajectory, as well over-the-ground (OTG) velocities for the AUG that can be used for more accurate subsea positioning.
 %
-Results are demonstrated using 1 MHz ADCP data collected from two Seaglider AUGs deployed for 49 days off the north coast of Alaska during August and September 2017. ... say soemthing quantitative if possible ...
+Results are demonstrated using 1 MHz ADCP data collected from a Seaglider AUG deployed for 49 days off the north coast of Alaska during August and September 2017. The algorithm results are compared to ground truth data from the top 40 meters of the water column, from a moored, upward-facing 600 kHz ADCP.
 
 \end{abstract}
 
 
 % TO DO
-% Add Lora as an author
+% Add Jonathan, Lora, Rich, ?? as authors
 % 
-%
 
 \input{A_intro}
 \input{B_linearmethods}
@@ -412,7 +444,7 @@ Results are demonstrated using 1 MHz ADCP data collected from two Seaglider AUGs
 \input{E_results}
 
 \bibliographystyle{IEEEtran}
-\bibliography{sew_additional}
+\bibliography{sew,sew_additional,shcher}
 
 % that's all folks
 \end{document}

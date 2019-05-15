@@ -1,4 +1,12 @@
 @STRING{J-ACSOCAM = {J. Acoust. Soc. Am.}}
+@STRING{J-AOT = {J. Atmos. Oceanic Tech.}}
+@STRING{J-PO = {J. Phys. Oceanogr.}}
+@STRING{IEEE_J_OE = "{IEEE} J. Oceanic Eng."}
+@STRING{C-ICRA = {Proc. {IEEE} Intl. Conf. Robot. Auto. ({ICRA})}}
+@STRING{C-IROS = {Proc. {IEEE}/{RSJ} Intl. Conf. Intell. Robots Systems ({IROS})}}
+@STRING{C-OCEANS = {Proc. {IEEE}/{MTS} {OCEANS} Conf. Exhib.}}
+
+
 
 % deep glider
 %osse2007deepglider
@@ -16,7 +24,7 @@ month = {Sept}
 @article{curry-2014-davis,
   title = {Multi-year volume, liquid freshwater, and sea ice transports through {Davis Strait}, 2004-10},
   author = {B. Curry and C. M. Lee and B. Petrie and R. E. Moritz and R. Kwok},
-  journal = {J. Phys. Oceanogr.},
+  journal = J-PO,
   year = {2014},
   pages = {1244--1266},
   volume = {44},
@@ -24,27 +32,29 @@ month = {Sept}
 }
 
 % todd SoCA current 2011 (Spray)
-%article {todd-2011-JGRC,
-%author = {Todd, Robert E. and Rudnick, Daniel L. and Mazloff, Matthew %R. and Davis, Russ E. and Cornuelle, Bruce D.},
-%title = {Poleward flows in the southern {California Current} System: %Glider observations and numerical simulation},
-%journal = {Journal of Geophysical Research: Oceans},
-%volume = {116},
-%number = {C2},
-%pages = {2156--2202},
-%year = {2011},
-%}
-%%note = {C02026}
+@article {todd-2011-JGRC,
+author = {Todd, Robert E. and Rudnick, Daniel L. and Mazloff, Matthew R. and Davis, Russ E. and Cornuelle, Bruce D.},
+title = {Poleward flows in the southern {California Current} System: Glider observations and numerical simulation},
+journal = {Journal of Geophysical Research: Oceans},
+volume = {116},
+number = {C02026},
+pages = {2156--2202},
+year = {2011},
+doi = {10.1029/2010JC006536}
+}
 
-%article{todd-2017-JAOT,
-%author = {R. E. Todd and D. L. Rudnick and J. T. Sherman and W. B. %Owens and L. George},
-%title = {Absolute velocity estimates from autonomous underwater %gliders equipped with Doppler current profilers},
-%journal = {J. Atmos. Oceanic Technol.},
-%volume = {34},
-%number = {2},
-%pages = {309--333},
-%year = {2017},
-%doi = {doi:10.1175/JTECH-D-16-0156.1}
-%}
+
+% todd abs vel 2017 (Spray)
+@article {todd-2017-JAOT,
+author = {Todd, Robert E. and Rudnick, Daniel L. and Sherman, J.T. and Owens, W.B. and George, L.},
+title = {Absolute velocity estimates from autonomous underwater gliders equipped with Doppler current profilers},
+journal = J-AOT,
+volume = {34},
+number = {2},
+pages = {309--333},
+year = {2017},
+doi = {10.1175/JTECH-D-16-0156.1}
+}
 
 % van uffelen 2013
 @article{vanuffelen:2013,
@@ -110,6 +120,18 @@ month = {Sept}
   volume = {82}
 }
 
+% Seaglider eriksen 
+@Article{eriksen-2001,
+  author = 	 {Charles C. Eriksen and James Osse and Russell D. Light and Timothy Wen and Thomas W. Lehman and Peter L. Sabin and John W. Ballard and Andrew M. Chiodi},
+  title = 	 {Seaglider: A long-range autonomous underwater vehicle for Oceanographic research},
+  journal =  IEEE_J_OE,
+  year = 	 2001,
+  volume = 	 26,
+  number = 	 4,
+  pages = 	 {424--436},
+  month = 	 {Oct}
+}
+
 % eriksen personal communication about ballast
 @unpublished{eriksen-2015-personal,
 title = {personal communication},
@@ -150,7 +172,7 @@ pages = {1--4}
   volume = {2},
   pages = {846--850},
   address = {Kobe, Japan},
-  month = nov
+  month = {Nov}
 }
 
 % lrauv
@@ -211,15 +233,60 @@ address = {},
   doi = {10.1109/IROS.2005.1545230},
 }
 
-@INPROCEEDINGS{thurnherr-2015-slocum-adcp, 
-author={A. M. {Thurnherr} and D. {Symonds} and L. {St. Laurent}}, 
-booktitle={2015 IEEE/OES Eleveth Current, Waves and Turbulence Measurement (CWTM)}, 
-title={Processing explorer ADCP data collected on Slocum gliders using the LADCP shear method}, 
+% medagoda ADCP aided nav
+@InProceedings{medagoda10_oceans,
+  author = 	 {Lashika Medagoda and Mike V. Jakuba and Oscar Pizarro and Stefan B. Williams},
+  title = 	 {Water Column Current Profile Aided Localisation
+for Autonomous Underwater Vehicles},
+  booktitle = C-OCEANS,
+  pages = 	 {10 pp.},
+  year = 	 2010,
+  address = 	 {Sydney, Australia},
+  month = 	 may}
+
+% stanway ADCP aided nav
+@InProceedings{mstanway-2010a,
+  Title                    = {Water profile navigation with an Acoustic Doppler Current Profiler},
+  Author                   = {Stanway, M.J.},
+  Booktitle                = C-OCEANS,
+  Year                     = {2010},
+  Address                  = {Sydney, Australia},
+  Month                    = {May},
+  Pages                    = {1-5},
+}
+
+% NUI
+@INPROCEEDINGS{mcfarland-2015-icerelnav, 
+author={C. J. McFarland and M. V. Jakuba and S. Suman and J. C. Kinsey and L. L. Whitcomb}, 
+booktitle= C-ICRA, 
+title={Toward ice-relative navigation of underwater robotic vehicles under moving sea ice: Experimental evaluation in the Arctic sea}, 
 year={2015}, 
-volume={}, 
-number={}, 
-pages={1-7}, 
-keywords={oceanographic equipment;oceanographic techniques;explorer ADCP data processing;Webb Slocum gliders;LADCP shear method;horizontal velocities;Lowered Acoustic Doppler Current Profiler;LADCP systems;TRDI Explorer ADCP;vessel-mounted system;standard LADCP method;time-series measurements;surface GPS fixes;shear method;California coast;ADCP beam;earth coordinates;vmADCP-derived velocities;glider-derived velocities;B-mission dives;external sensor;attitude data;deep-water LADCP profiles;Velocity measurement;Time series analysis;Sea measurements;Software;Oceans;Clocks;Instruments}, 
-doi={10.1109/CWTM.2015.7098134}, 
-ISSN={2160-7176}, 
-month={March},}
+pages={1527--1534}, 
+doi={10.1109/ICRA.2015.7139392}, 
+ISSN={1050-4729}, 
+month={May}
+}
+
+% ABE
+@article{yoerger-1998-ABE,
+author = { Dana R. Yoerger and Albert M. Bradley and Barrier B. Walden and Hanumant Singh and Ralf Bachmeyer },
+title = {Surveying a subsea lava flow using the Autonomous Benthic Explorer (ABE)},
+journal = {International Journal of Systems Science},
+volume = {29},
+number = {10},
+pages = {1031-1044},
+year  = {1998},
+publisher = {Taylor & Francis},
+doi = {10.1080/00207729808929596},
+}
+
+% CANAPE
+@article{worcester-2017-canape,
+author = {Peter F. Worcester and Matthew A. Dzieciuch},
+title = {The 2016-2017 deep-water Canada Basin Acoustic Propagation Experiment ({CANAPE}): A preliminary report.},
+journal = J-ACSOCAM,
+volume = {142},
+pages = {2713},
+year  = {2017},
+url   = {https://doi.org/10.1121/1.5014899}
+}

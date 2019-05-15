@@ -1,9 +1,28 @@
-\section{Introduction \textbf(SARAH)}
+\section{Introduction}
 
-The main challenge of AUG-based ADCP velocity profiling is that each velocity profile is measured relative to the TTW motion of the glider, which is generally unknown. TTW velocity can be inferred from the AUG dynamic model, but is subject to uncertainty because the model is based on steady state flight and doesn't take roll into account. This lack of a georeferenced platform velocity produces the need to perform a simultaneous robust estimation of current and glider TTW velocity using all available data -- ADCP velocity profiles, surrounding water density, glider buoyancy engine state, glider attitude and angle of attack, glider depth, and GPS positions at the start and end of the dive.
+The goal of this work is to simultaneously estimate a) absolute (Earth-referenced) ocean velocity profile, and b) the absolute autonomous underwater glider (AUG) path over the bottom, based on on-board acoustic Doppler current profiler (ADCP) observations of relative current velocity profiles. 
 
-\section{Background \textbf(SARAH)}
+The main challenge of AUG-based ADCP velocity profiling is that each velocity profile is measured relative to the through-the-water (TTW) motion of the glider, as opposed to the earth referenced glider velocity. The AUG's TTW velocity can be inferred from the AUG dynamic model, but is subject to uncertainty because the model is based on steady state flight and doesn't take roll into account. This lack of a georeferenced platform velocity produces the need to perform a simultaneous robust estimation of current and glider TTW velocity using all available data -- ADCP velocity profiles, surrounding water density, glider buoyancy engine state, glider attitude and angle of attack, glider depth, and GPS positions at the start and end of the dive.
 
-Extensive work by Todd et al in this domain employed a modified version of the lowered ADCP estimation framework \cite{todd-2017-JAOT,todd-2011-JGRC}.  In addition to this estimation framework, our work uses current data from the entire dive (as opposed to just during descent) and incorporates nonlinear hydrodynamic and attitude models from the vehicle navigation system to produce a time-varying current profile for the entire dive.
+In this paper we will describe two different frameworks for performing this estimation. A linear global inverse, and a fast, robust nonlinear method. For comparison purposes in this initial work, we will use a pre-computed estimate of the glider TTW velocity from the hydrodynamic model for both methods. The goal, however, is to also incorporate the nonlinear hydrodynamic model estimation as part of the nonlinear estimation framework. We will also investigate the effect of including either a subsea position fix from range measurements during a small portion of the glider's flight.
 
-SARAH -- complete literature review.
+\section{Background}
+
+%Extensive work by Todd et al in this domain employed a modified version of the lowered ADCP estimation framework \cite{todd-2017-JAOT,todd-2011-JGRC}.  In addition to this estimation framework, our work uses current data from the entire dive (as opposed to just during descent) and incorporates nonlinear hydrodynamic and attitude models from the vehicle navigation system to produce a time-varying current profile for the entire dive.
+
+Historically, ADCP measurements were made from ships with with relatively low frequency systems (70 kHz) or from moorings with low or mid-frequency instruments (300 kHz). The 300 kHz ADCPs are also common on large underwater vehicles, in particular instruments that can be used as a Doppler velocity log to provide ``bottom lock''---i.e., vehicle velocity relative to the seafloor \cite{yoerger-1998-ABE} or, in some specialized cases, the underside of ice \cite{mcfarland-2015-icerelnav}.
+
+To provide better resolution of deep currents from shipboard measurements, lowered ADCP methods were developed using overlapping shear traces from a higher frequency (300 kHz) ADCP lowered from a (relatively) stationary ship. The shear traces are then used to reconstruct the full current profile \cite{Visbeck2002}.
+
+In the last 10 years, there has been increased interest in using ADCPs from autonomous underwater vehicles to characterize the currents between the surface and the seafloor and to close the gap of uncertainty in vehicle drift between when GPS is available at the surface and bottom lock is obtained within range of the seafloor \cite{mstanway-2010a,medagoda10_oceans}.
+
+Even more recently, very high frequency ADCPs (1 MHz) have been integrated onto underwater autonomous gliders---initially the Slocum gliders, and now onto Seagliders---and used to estimate depth-varying current profiles. 
+
+\emph{ANDREY -- I think this is the reference we are missing \cite{thurnherr-2015-slocum-adcp}. \\
+https://ieeexplore.ieee.org/document/7098134 \\
+%https://ieeexplore.ieee.org/document/7098134
+Can you summarize how it compares to your method? I admit the reviewer's comment sure sound like it could have been from Lou St. Laurent!}
+
+Extensive work by Todd et al in this domain employed a modified version of the lowered ADCP estimation framework \cite{todd-2011-JGRC,todd-2017-JAOT}.
+%
+Our contribution builds on and extends their work with several key innovations. We use current data from the entire dive (as opposed to just during descent), which is crucial for multi-hour dives where, as we show, the current profiles on descent versus ascent differ significantly. We also separate the over-the-ground glider velocity into the drift velocity (as a result of advection), and the glider's horizontal through-the-water velocity. This enables us to directly incorporate hydrodynamic model velocity estimates and independently control the smoothness regularization of the different velocity components.
